@@ -1,4 +1,4 @@
-.profile__info_edit-button {
+.profile__edit-button {
   background-image: url(../../../../images/profile__info_edit-button.svg);
   background-size: 10px 10px;
   background-repeat: no-repeat;
@@ -10,13 +10,13 @@
   align-self: center;
 }
 
-.profile__info_edit-button:hover {
+.profile__edit-button:hover {
   cursor: pointer;
   opacity: 0.6;
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
-  .profile__info_edit-button {
+  .profile__edit-button {
     background-image: url(../../../../images/profile__info_edit-button.svg);
     background-size: 7.5px 7.5px;
     background-repeat: no-repeat;
