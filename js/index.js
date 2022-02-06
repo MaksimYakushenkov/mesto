@@ -2,12 +2,12 @@ let profile = document.querySelector('.profile');
 let editButton = profile.querySelector('.profile__edit-button');
 let popup = document.querySelector('.popup');
 let closeButton = popup.querySelector('.popup__close-button');
-let profileName = profile.querySelector('.profile__info_name');
-let profileAbout = profile.querySelector('.profile__info_about');
+let profileName = profile.querySelector('.profile__name');
+let profileAbout = profile.querySelector('.profile__about');
 let newName = document.querySelector('#name');
 let newAbout = document.querySelector('#about');
-let submitButton = popup.querySelector('.popup__container_submit');
-let formElement = popup.querySelector('.popup__container_form');
+let submitButton = popup.querySelector('.popup__submit');
+let formElement = popup.querySelector('.popup__form');
 
 function openPopup() {
   popup.classList.add('popup_opened');
