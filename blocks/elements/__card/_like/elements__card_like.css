@@ -1,0 +1,17 @@
+.elements__card_like {
+  width: 22px;
+  height: 19px;
+  padding: 5px 5px 1px 0;
+  background-image: url(../../../../images/like_disabled.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.elements__card_like:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.elements__card_like:active {
+  background-image: url(../../../../images/like_active.svg);
+}
