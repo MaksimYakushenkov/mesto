@@ -1,4 +1,4 @@
-.elements__card_like {
+.card__like {
   width: 22px;
   height: 19px;
   padding: 5px 5px 1px 0;
@@ -7,11 +7,11 @@
   background-position: center;
 }
 
-.elements__card_like:hover {
+.card__like:hover {
   cursor: pointer;
   opacity: 0.5;
 }
 
-.elements__card_like:active {
+.card__like:active {
   background-image: url(../../../../images/like_active.svg);
 }
