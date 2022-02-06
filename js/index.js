@@ -19,13 +19,6 @@ function closePopup() {
   popup.classList.remove('popup_opened');
 }
 
-function saveChahged() {
-  profileName.textContent = newName.textContent;
-  profileAbout.textContent = newAbout.textContent;
-  popup.classList.remove('popup_opened');
-  console.log(newName.value);
-}
-
 function formSubmitHandler (evt) {
     evt.preventDefault();
     profileName.textContent = newName.value;
