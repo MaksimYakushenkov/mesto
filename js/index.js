@@ -6,7 +6,6 @@ let profileName = profile.querySelector('.profile__name');
 let profileAbout = profile.querySelector('.profile__about');
 let newName = document.querySelector('#name');
 let newAbout = document.querySelector('#about');
-let submitButton = popup.querySelector('.popup__submit');
 let formElement = popup.querySelector('.popup__form');
 
 function openPopup() {
@@ -23,7 +22,7 @@ function formSubmitHandler (evt) {
     evt.preventDefault();
     profileName.textContent = newName.value;
     profileAbout.textContent = newAbout.value;
-    popup.classList.remove('popup_opened');
+    closePopup();
 }
 
 editButton.addEventListener('click', openPopup);

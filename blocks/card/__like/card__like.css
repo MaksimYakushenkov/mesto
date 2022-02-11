@@ -5,6 +5,9 @@
   background-image: url(../../../images/like_disabled.svg);
   background-repeat: no-repeat;
   background-position: center;
+  box-sizing: content-box;
+  border: none;
+  background-color: transparent;
 }
 
 .card__like:hover {
