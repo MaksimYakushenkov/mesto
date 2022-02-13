@@ -1,7 +1,5 @@
 .card__popup_container {
   display: flex;
-  max-width: 75vw;
-  max-height: 75vh;
   flex-direction: column;
   position: relative;
 }
