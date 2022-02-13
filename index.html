@@ -32,48 +32,7 @@
       </section>
       
       <section class="elements">
-        <article class="elements__item card">
-          <img src="./images/Murmansk-Oblast.jpg" alt="Мурманская область" class="card__image">
-          <div class="card__bottom">
-            <p class="card__title">Мурманская область</p>
-            <button class="card__like"></button>
-          </div>
-        </article>
-        <article class="elements__item card">
-          <img src="./images/Machu-Picchu.jpg" alt="Гора Мачу-Пикчу" class="card__image">
-          <div class="card__bottom">
-            <p class="card__title">Мачу-Пикчу</p>
-            <button class="card__like"></button>
-          </div>
-        </article>
-        <article class="elements__item card">
-          <img src="./images/Jakarta-Utara.jpg" alt="Джакарта" class="card__image">
-          <div class="card__bottom">
-            <p class="card__title">Джакарта</p>
-            <button class="card__like"></button>
-          </div>
-        </article>
-        <article class="elements__item card">
-          <img src="./images/Iceland.jpg" alt="Обломки самолета на острове в Исландии" class="card__image">
-          <div class="card__bottom">
-            <p class="card__title">Исландия</p>
-            <button class="card__like"></button>
-          </div>
-        </article>
-        <article class="elements__item card">
-          <img src="./images/Edinburgh.jpg" alt="Ночной Единбург" class="card__image">
-          <div class="card__bottom">
-            <p class="card__title">Единбург</p>
-            <button class="card__like"></button>
-          </div>
-        </article>
-        <article class="elements__item card">
-          <img src="./images/Amsterdam.jpg" alt="Лодка проплывает под мостом в Амстердаме" class="card__image">
-          <div class="card__bottom">
-            <p class="card__title">Амстердам</p>
-            <button class="card__like"></button>
-          </div>
-        </article>
+ 
       </section>
 
       <section class="popup">
@@ -87,6 +46,17 @@
           <button class="popup__close-button"></button>
         </div>
       </section>
+      <section class="popup popup_add-mesto">
+        <div class="popup__container">
+          <p class="popup__title">Новое место</p>
+          <form name="addMesto" class="popup__form">
+            <input type="text" class="popup__input" id="nameMesto" placeholder="Название">
+            <input type="text" class="popup__input" id="linkImage" placeholder="Ссылка на картинку">
+            <button type="submit" class="popup__submit" id="addMesto">Сохранить</button>
+          </form>
+          <button id="closeMesto" class="popup__close-button"></button>
+        </div>
+      </section>
     </main>
 
     <footer class="footer">
@@ -94,6 +64,24 @@
     </footer>
 
   </div>
+  <template id="card">
+    <article class="elements__item card">
+      <img class="card__image">
+      <div class="card__bottom">
+        <p class="card__title"></p>
+        <button class="card__like"></button>
+      </div>
+      <button class="card__trash"></button>
+      <div class="card__popup">
+        <div class="card__popup_container">
+          <img class="card__popup_image">
+          <p class="card__popup_title"></p>
+          <button class="card_popup_close"></button>
+        </div>
+      </div>
+    </article>
+  </template>
+  <script src="./js/initialCards.js"></script>
   <script src="./js/index.js"></script>
 </body>
 </html>

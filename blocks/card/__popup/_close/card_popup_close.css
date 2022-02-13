@@ -1,0 +1,17 @@
+.card_popup_close {
+  width: 32px;
+  height: 32px;
+  background-image: url(../../../../images/form_close.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  background-color: transparent;
+  border: none;
+ }
+ 
+ .card_popup_close:hover {
+   cursor: pointer;
+   opacity: 0.6;
+ }
