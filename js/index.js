@@ -47,8 +47,8 @@ function createCard(link, name) {
   });
   cardElement.querySelector('.card__image').addEventListener('click', function (evt) {
     subtitleImagePopup.textContent = name;
+    pictureImagePopup.alt = name;
     pictureImagePopup.src = link;
-    pictureImagePopup.alt = link;
     openPopup(imagePopup);
   });
   cardImage.src = link;
