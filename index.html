@@ -35,7 +35,7 @@
  
       </section>
 
-      <section class="popup">
+      <section class="popup profile-popup">
         <div class="popup__container">
           <p class="popup__title">Редактировать профиль</p>
           <form name="editProfile" class="popup__form">
@@ -46,16 +46,23 @@
           <button class="popup__close-button"></button>
         </div>
       </section>
-      <section class="popup popup_add-mesto">
+      <section class="popup place-popup">
         <div class="popup__container">
           <p class="popup__title">Новое место</p>
-          <form name="addMesto" class="popup__form">
-            <input type="text" class="popup__input" id="nameMesto" placeholder="Название">
+          <form name="addPlace" class="popup__form">
+            <input type="text" class="popup__input" id="namePlace" placeholder="Название">
             <input type="text" class="popup__input" id="linkImage" placeholder="Ссылка на картинку">
-            <button type="submit" class="popup__submit" id="addMesto">Сохранить</button>
+            <button type="submit" class="popup__submit">Сохранить</button>
           </form>
-          <button id="closeMesto" class="popup__close-button"></button>
+          <button class="popup__close-button"></button>
         </div>
+      </section>
+      <section class="popup popup_image image-popup">
+          <div class="popup__container_image">
+            <img class="popup__image">
+            <p class="popup__subtitle"></p>
+            <button class="popup__close-button"></button>
+          </div>
       </section>
     </main>
 
@@ -72,13 +79,6 @@
         <button class="card__like"></button>
       </div>
       <button class="card__trash"></button>
-      <div class="card__popup">
-        <div class="card__popup_container">
-          <img class="card__popup_image">
-          <p class="card__popup_title"></p>
-          <button class="card_popup_close"></button>
-        </div>
-      </div>
     </article>
   </template>
   <script src="./js/initialCards.js"></script>
