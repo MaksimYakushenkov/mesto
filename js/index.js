@@ -79,21 +79,35 @@ editProfileButton.addEventListener('click', function () {
   newProfileAbout.setAttribute('value', profileAbout.textContent);
 }); 
 
-profileCloseButton.addEventListener('click', function () {
-  closePopup(profilePopup);
+profilePopup.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('profile-popup') || evt.target.classList.contains('popup__close-button')) {
+    closePopup(profilePopup);
+  }
 });
 
 addPlaceButton.addEventListener('click', function () {
   openPopup(placePopup);
 }); 
 
-closePlaceButton.addEventListener('click', function () {
-  closePopup(placePopup);
+placePopup.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('place-popup') || evt.target.classList.contains('popup__close-button')) {
+    closePopup(placePopup);
+  }
 });
 
-closeImageButton.addEventListener('click', function () {
-  closePopup(imagePopup);
+imagePopup.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('image-popup') || evt.target.classList.contains('popup__close-button')) {
+    closePopup(imagePopup);
+  }
 });
+
+document.onkeydown = function (evt) {
+  if (evt.key == "Escape") {
+      closePopup(profilePopup);
+      closePopup(placePopup);
+      closePopup(imagePopup);
+  }
+};
 
 createCards();
 profileForm.addEventListener('submit', handleProfileFormSubmit);
