@@ -1,25 +1,9 @@
-// Объявляем необходимые глобальные перемены
-const profile = document.querySelector('.profile');
-const editProfileButton = profile.querySelector('.profile__edit-button');
-const profilePopup = document.querySelector('.profile-popup');
-const profileCloseButton = profilePopup.querySelector('.popup__close-button');
-const profileName = profile.querySelector('.profile__name');
-const profileAbout = profile.querySelector('.profile__about');
-const newProfileName = document.querySelector('#name');
-const newProfileAbout = document.querySelector('#about');
-const profileForm = profilePopup.querySelector('.popup__form');
-const placePopup = document.querySelector('.place-popup');
-const addPlaceButton = profile.querySelector('.profile__add-button');
-const closePlaceButton = placePopup.querySelector('.popup__close-button');
-const placeForm = placePopup.querySelector('.popup__form');
-const newPlace = document.querySelector('#namePlace');
-const newImage = document.querySelector('#linkImage');
-const templateCard = document.querySelector('#card').content;
-const elementSection = document.querySelector('.elements');
-const imagePopup = document.querySelector('.image-popup');
-const closeImageButton = imagePopup.querySelector('.popup__close-button');
-const subtitleImagePopup = imagePopup.querySelector('.popup__subtitle');;
-const pictureImagePopup = imagePopup.querySelector('.popup__image');;
+// Импортируем класс карточки
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+
+// Импортируем необходимые глобальные переменные
+import {editProfileButton, profilePopup, profileName, profileAbout, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, placeForm, newPlace, newImage, elementSection, imagePopup, initialCards} from './utils/constants.js';
 
 // Функция открытия модального окна и добавления обработчика
 function openPopup(popup) {
@@ -41,41 +25,40 @@ function handleProfileFormSubmit (evt) {
   closePopup(profilePopup);
 }
 
-// Функция создания карточки секции "Места"
-function createCard(link, name) {
-  const cardElement = templateCard.querySelector('.card').cloneNode(true);
-  const cardImage = cardElement.querySelector('.card__image');
-  const cardTitle = cardElement.querySelector('.card__title');
-  cardElement.querySelector('.card__like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('card__like_active');
-  });
-  cardElement.querySelector('.card__trash').addEventListener('click', function (evt) {
-    evt.target.closest('.card').remove();
-  });
-  cardElement.querySelector('.card__image').addEventListener('click', function (evt) {
-    subtitleImagePopup.textContent = name;
-    pictureImagePopup.alt = name;
-    pictureImagePopup.src = link;
-    openPopup(imagePopup);
-  });
-  cardImage.src = link;
-  cardImage.alt = name;
-  cardTitle.textContent = name;
-  return cardElement
-}
-
 // Функция создания карточек секции "Места"
 function createCards() {
   initialCards.forEach(function (el) {
-    const readyCard = createCard(el.link, el.name)
-    elementSection.append(readyCard);
+    const card = new Card(el, '#card');
+    const cardElement = card.generateCard();
+    elementSection.append(cardElement);
+  });
+}
+
+//Функция включения валидации всех форм
+function enableValidationForm() {
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  formList.forEach((elementForm) => {
+    const formValid = new FormValidator({
+      formSelector: '.popup__form',
+      inputSelector: '.popup__input',
+      submitButtonSelector: '.popup__button',
+      inactiveButtonClass: 'popup__button_disabled',
+      inputErrorClass: 'popup__input_type_error',
+      errorClass: 'popup__error_visible'
+    }, elementForm);
+    formValid.enableValidation(elementForm);
   });
 }
 
 // Функция добавления пользователем новой карточки в секцию "Места"
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
-  const readyNewCard = createCard(newImage.value, newPlace.value);
+  const data = {
+    name: newImage.value, 
+    link: newPlace.value
+  };
+  const creatNewCard = new Card(data, '#card');
+  const readyNewCard = creatNewCard.generateCard();
   const submitPlaceButton = placeForm.querySelector('.popup__button');
   elementSection.prepend(readyNewCard);
   placeForm.reset();
@@ -125,8 +108,14 @@ function closeByEscape(evt) {
   }
 }
 
+// Функции включения валидации форм
+enableValidationForm();
+
 // Функция создания карточек
 createCards();
+
 // Слушатели кнопок "Сохранить" под формами редактирования профиля и добавления нового места
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 placeForm.addEventListener('submit', handlePlaceFormSubmit);
+
+export {openPopup}
