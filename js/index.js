@@ -1,9 +1,11 @@
 // Импортируем класс карточки
 import {Card} from './Card.js';
+
+// Импортируем класс валидатора
 import {FormValidator} from './FormValidator.js';
 
 // Импортируем необходимые глобальные переменные
-import {editProfileButton, profilePopup, profileName, profileAbout, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, placeForm, newPlace, newImage, elementSection, imagePopup, initialCards} from './utils/constants.js';
+import {editProfileButton, profilePopup, profileName, profileAbout, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, placeForm, newPlace, newImage, elementSection, imagePopup, subtitleImagePopup, pictureImagePopup, popups, initialCards} from './utils/constants.js';
 
 // Функция открытия модального окна и добавления обработчика
 function openPopup(popup) {
@@ -25,14 +27,18 @@ function handleProfileFormSubmit (evt) {
   closePopup(profilePopup);
 }
 
-// Функция создания карточек секции "Места"
-function createCards() {
-  initialCards.forEach(function (el) {
-    const card = new Card(el, '#card');
-    const cardElement = card.generateCard();
-    elementSection.append(cardElement);
-  });
+// Функция создания карточки секции "Места"
+function createCard(item) {
+  const card = new Card(item, '#card', handleCardClick);
+  const cardElement = card.generateCard();
+  return cardElement
 }
+
+// Функция создания карточек из списка данных
+initialCards.forEach(function (el) {
+  const cardElement = createCard(el)
+  elementSection.append(cardElement);
+});
 
 //Функция включения валидации всех форм
 function enableValidationForm() {
@@ -54,16 +60,13 @@ function enableValidationForm() {
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
   const data = {
-    name: newImage.value, 
-    link: newPlace.value
+    name: newPlace.value, 
+    link: newImage.value
   };
-  const creatNewCard = new Card(data, '#card');
-  const readyNewCard = creatNewCard.generateCard();
-  const submitPlaceButton = placeForm.querySelector('.popup__button');
+  const readyNewCard = createCard(data);
   elementSection.prepend(readyNewCard);
   placeForm.reset();
-  submitPlaceButton.classList.add('popup__button_disabled');
-  submitPlaceButton.setAttribute('disabled', true);
+  enableValidationForm();
   closePopup(placePopup);
 }
 
@@ -74,31 +77,31 @@ editProfileButton.addEventListener('click', function () {
   newProfileAbout.setAttribute('value', profileAbout.textContent);
 }); 
 
-// Слушатель закрытия модального окна редактирования профила либо крестиком либо по клику по оверлею
-profilePopup.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('profile-popup') || evt.target.classList.contains('popup__close-button')) {
-    closePopup(profilePopup);
-  }
-});
+// Функция открытия попапа с картинкой
+function handleCardClick(name, link) {
+  subtitleImagePopup.textContent = name;
+  pictureImagePopup.alt = name;
+  pictureImagePopup.src = link;
+  openPopup(imagePopup);
+}
 
 // Слушатель кнопки "Добавить Место"
 addPlaceButton.addEventListener('click', function () {
   openPopup(placePopup);
 }); 
 
-// Слушатель закрытия модального окна добавления карточки места либо крестиком либо по клику по оверлею
-placePopup.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('place-popup') || evt.target.classList.contains('popup__close-button')) {
-    closePopup(placePopup);
-  }
-});
 
-// Слушатель закрытия модального окна просмотра изображения карточки в секции "Места" либо крестиком либо по клику по оверлею
-imagePopup.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('image-popup') || evt.target.classList.contains('popup__close-button')) {
-    closePopup(imagePopup);
-  }
-});
+// Слушатели закрытия всех попапов
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+          closePopup(popup)
+      }
+      if (evt.target.classList.contains('popup__close-button')) {
+        closePopup(popup)
+      }
+  })
+})
 
 // Функция закрытия попапа клавишей Esc
 function closeByEscape(evt) {
@@ -110,9 +113,6 @@ function closeByEscape(evt) {
 
 // Функции включения валидации форм
 enableValidationForm();
-
-// Функция создания карточек
-createCards();
 
 // Слушатели кнопок "Сохранить" под формами редактирования профиля и добавления нового места
 profileForm.addEventListener('submit', handleProfileFormSubmit);

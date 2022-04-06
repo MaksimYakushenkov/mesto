@@ -15,6 +15,7 @@ const elementSection = document.querySelector('.elements');
 const imagePopup = document.querySelector('.image-popup');
 const subtitleImagePopup = imagePopup.querySelector('.popup__subtitle');
 const pictureImagePopup = imagePopup.querySelector('.popup__image');
+const popups = document.querySelectorAll('.popup');
 const initialCards = [
   {
     name: 'Мурманская область',
@@ -42,4 +43,4 @@ const initialCards = [
   }
 ];
 
-export {editProfileButton, profilePopup, profileName, profileAbout, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, placeForm, newPlace, newImage, elementSection, imagePopup, subtitleImagePopup, pictureImagePopup, initialCards}
+export {editProfileButton, profilePopup, profileName, profileAbout, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, placeForm, newPlace, newImage, elementSection, imagePopup, subtitleImagePopup, pictureImagePopup, popups, initialCards}
