@@ -16,6 +16,15 @@ const imagePopup = document.querySelector('.image-popup');
 const subtitleImagePopup = imagePopup.querySelector('.popup__subtitle');
 const pictureImagePopup = imagePopup.querySelector('.popup__image');
 const popups = document.querySelectorAll('.popup');
+const formValidators = {};
+const config = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+  };
 const initialCards = [
   {
     name: 'Мурманская область',
@@ -43,4 +52,4 @@ const initialCards = [
   }
 ];
 
-export {editProfileButton, profilePopup, profileName, profileAbout, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, placeForm, newPlace, newImage, elementSection, imagePopup, subtitleImagePopup, pictureImagePopup, popups, initialCards}
+export {editProfileButton, profilePopup, profileName, profileAbout, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, placeForm, newPlace, newImage, elementSection, imagePopup, subtitleImagePopup, pictureImagePopup, popups, formValidators, config, initialCards}

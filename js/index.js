@@ -5,7 +5,7 @@ import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
 
 // Импортируем необходимые глобальные переменные
-import {editProfileButton, profilePopup, profileName, profileAbout, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, placeForm, newPlace, newImage, elementSection, imagePopup, subtitleImagePopup, pictureImagePopup, popups, initialCards} from './utils/constants.js';
+import {editProfileButton, profilePopup, profileName, profileAbout, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, placeForm, newPlace, newImage, elementSection, imagePopup, subtitleImagePopup, pictureImagePopup, popups, formValidators, config, initialCards} from './utils/constants.js';
 
 // Функция открытия модального окна и добавления обработчика
 function openPopup(popup) {
@@ -41,20 +41,18 @@ initialCards.forEach(function (el) {
 });
 
 //Функция включения валидации всех форм
-function enableValidationForm() {
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
-  formList.forEach((elementForm) => {
-    const formValid = new FormValidator({
-      formSelector: '.popup__form',
-      inputSelector: '.popup__input',
-      submitButtonSelector: '.popup__button',
-      inactiveButtonClass: 'popup__button_disabled',
-      inputErrorClass: 'popup__input_type_error',
-      errorClass: 'popup__error_visible'
-    }, elementForm);
-    formValid.enableValidation(elementForm);
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name')
+    formValidators[formName] = validator;
+    validator.enableValidation();
   });
-}
+};
+
+// Включение валидации
+enableValidation(config);
 
 // Функция добавления пользователем новой карточки в секцию "Места"
 function handlePlaceFormSubmit(evt) {
@@ -66,12 +64,12 @@ function handlePlaceFormSubmit(evt) {
   const readyNewCard = createCard(data);
   elementSection.prepend(readyNewCard);
   placeForm.reset();
-  enableValidationForm();
   closePopup(placePopup);
 }
 
 // Слушатель кнопки "Редактировать профиль"
 editProfileButton.addEventListener('click', function () {
+  formValidators['editProfile'].resetValidation();
   openPopup(profilePopup);
   newProfileName.setAttribute('value', profileName.textContent);
   newProfileAbout.setAttribute('value', profileAbout.textContent);
@@ -87,9 +85,9 @@ function handleCardClick(name, link) {
 
 // Слушатель кнопки "Добавить Место"
 addPlaceButton.addEventListener('click', function () {
-  openPopup(placePopup);
+    formValidators['addPlace'].resetValidation();
+    openPopup(placePopup);
 }); 
-
 
 // Слушатели закрытия всех попапов
 popups.forEach((popup) => {
@@ -110,9 +108,6 @@ function closeByEscape(evt) {
     closePopup(openedPopup);
   }
 }
-
-// Функции включения валидации форм
-enableValidationForm();
 
 // Слушатели кнопок "Сохранить" под формами редактирования профиля и добавления нового места
 profileForm.addEventListener('submit', handleProfileFormSubmit);
