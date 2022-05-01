@@ -15,7 +15,7 @@
   <div class="page">
 
     <header class="header">
-     <img src="./images/header__logo.svg" alt="Логотип Место" class="header__logo">
+     <img src="<%=require('./images/header__logo.svg')%>" alt="Логотип Место" class="header__logo">
     </header>
 
     <main>
@@ -27,7 +27,7 @@
           <button class="profile__edit-button"></button>
         </div>
         <button class="profile__add-button">
-          <img src="./images/profile__add-button.svg" alt="Добавить картинку" class="profile__button-image">
+          <img src="<%=require('./images/profile__add-button.svg')%>" alt="Добавить картинку" class="profile__button-image">
         </button>
       </section>
       
@@ -85,10 +85,6 @@
       <button class="card__trash"></button>
     </article>
   </template>
-  <script type="module" src="./js/pages/index.js"></script>
-  <script type="module" src="./js/utils/constants.js"></script>
-  <script type="module" src="./js/components/Card.js"></script>
-  <script type="module" src="./js/components/FormValidator.js"></script>
-  <script type="module" src="./js/components/UserInfo.js"></script>
+
 </body>
 </html>

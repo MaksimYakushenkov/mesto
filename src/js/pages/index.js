@@ -1,4 +1,5 @@
-import "../../pages/index.css";
+import '../../pages/index.css';
+
 // Импортируем класс карточки
 import {Card} from '../components/Card.js';
 

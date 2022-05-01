@@ -12,10 +12,8 @@ export default class UserInfo {
   }
 
   setUserInfo() {
-
     this._profileName.textContent = newProfileName.value;
-    this._profileAbout.textContent = newProfileAbout.value;
-    console.log('все ок 1');
+    this._profileAbout.textContent = newProfileAbout.value
 
   }
 }

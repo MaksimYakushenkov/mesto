@@ -25,30 +25,40 @@ const config = {
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__error_visible'
   };
+
+  // теперь картинки можно импортировать,
+// вебпак добавит в переменные правильные пути
+const murmanskImage = new URL('../../images/Murmansk-Oblast.jpg', import.meta.url);
+const machuPikchuImage = new URL('../../images/Machu-Picchu.jpg', import.meta.url);
+const jacartaImage = new URL('../../images/Jakarta-Utara.jpg', import.meta.url);
+const islandImage = new URL('../../images/Iceland.jpg', import.meta.url);
+const edinburgImage = new URL('../../images/Edinburgh.jpg', import.meta.url);
+const amsterdamImage = new URL('../../images/Amsterdam.jpg', import.meta.url);
+
 const initialCards = [
   {
     name: 'Мурманская область',
-    link: './images/Murmansk-Oblast.jpg',
+    link: murmanskImage,
   },
   {
     name: 'Мачу-Пикчу',
-    link: './images/Machu-Picchu.jpg',
+    link: machuPikchuImage,
   },
   {
     name: 'Джакарта',
-    link: './images/Jakarta-Utara.jpg',
+    link: jacartaImage,
   },
   {
     name: 'Исландия',
-    link: './images/Iceland.jpg',
+    link: islandImage,
   },
   {
     name: 'Единбург',
-    link: './images/Edinburgh.jpg',
+    link: edinburgImage,
   },
   {
     name: 'Амстердам',
-    link: './images/Amsterdam.jpg',
+    link: amsterdamImage,
   }
 ];
 

@@ -1,34 +1,24 @@
 {
-  "name": "mesto",
+  "name": "webpack-demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Demo repo for webpack",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "webpack --mode=production",
+    "build:dev": "webpack --mode=development",
     "dev": "webpack serve"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MaksimYakushenkov/mesto.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MaksimYakushenkov/mesto/issues"
-  },
-  "homepage": "https://github.com/MaksimYakushenkov/mesto#readme",
-  "dependencies": {
-    "core-js": "^3.22.3",
-    "http-proxy-middleware": "^2.0.6",
-    "jquery": "^3.6.0"
-  },
+  "keywords": [
+    "webpack"
+  ],
+  "author": "Sergey Kupletsky <s.kupletsky@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.17.10",
-    "@babel/preset-env": "^7.17.10",
-    "autoprefixer": "^10.4.5",
-    "babel-loader": "^8.2.5",
-    "clean-webpack-plugin": "^4.0.0",
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "autoprefixer": "^10.4.4",
+    "babel-loader": "^8.2.4",
+    "core-js": "^3.22.0",
     "css-loader": "^6.7.1",
     "cssnano": "^5.1.7",
     "html-webpack-plugin": "^5.5.0",
