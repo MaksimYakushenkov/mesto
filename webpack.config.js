@@ -11,11 +11,13 @@ module.exports = {
         publicPath: '[name].[contenthash].js'
   },
     mode: 'development',
-  devServer: {
-    contentBase: path.resolve(__dirname, './dist'),
-    compress: true,
-    port: 8080,
-    open: true
+    devServer: {
+      static: {
+          directory: path.join(__dirname, 'dist'),
+      },
+      compress: true,
+      port: 9000,
+      open: true
   },
     module: {
       rules: [{
