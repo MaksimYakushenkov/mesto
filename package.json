@@ -1,7 +1,7 @@
 {
-  "name": "webpack-demo",
+  "name": "Web Developer — Yandex Prakticum",
   "version": "1.0.0",
-  "description": "Demo repo for webpack",
+  "description": "Practice #8",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode=production",
@@ -11,14 +11,16 @@
   "keywords": [
     "webpack"
   ],
-  "author": "Sergey Kupletsky <s.kupletsky@gmail.com>",
-  "license": "MIT",
+  "author": "Maxim Yakushenkov",
+  "license": "",
+  "dependencies": {
+    "core-js": "^3.22.4"
+  },
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
     "autoprefixer": "^10.4.4",
     "babel-loader": "^8.2.4",
-    "core-js": "^3.22.0",
     "css-loader": "^6.7.1",
     "cssnano": "^5.1.7",
     "html-webpack-plugin": "^5.5.0",

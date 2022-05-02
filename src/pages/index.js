@@ -1,4 +1,5 @@
-import '../../pages/index.css';
+// Импортируем классы CSS
+import './index.css';
 
 // Импортируем класс карточки
 import {Card} from '../components/Card.js';
@@ -8,9 +9,6 @@ import Section from '../components/Section.js';
 
 // Импортируем класс, который отвечает за управление отображением информации о пользователе на странице
 import UserInfo from '../components/UserInfo.js';
-
-//Импортируем класс попапа
-import Popup from '../components/Popup.js';
 
 //Импортируем класс попапа с картинкой
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -22,16 +20,11 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import {FormValidator} from '../components/FormValidator.js';
 
 // Импортируем необходимые глобальные переменные
-import {editProfileButton, profilePopup, profileName, profileAbout, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, placeForm, newPlace, newImage, elementSection, imagePopup, subtitleImagePopup, pictureImagePopup, popups, formValidators, config, initialCards} from '../utils/constants.js';
-
-const profilePopupAdd = new Popup('.profile-popup');
-profilePopupAdd.setEventListeners();
-const placePopupAdd = new Popup('.place-popup');
-placePopupAdd.setEventListeners();
+import {editProfileButton, newProfileName, newProfileAbout, addPlaceButton, elementSection, formValidators, cardTemplateSelector, config, initialCards} from '../utils/constants.js';
 
 // Функция создания карточки секции "Места"
 function createCard(item) {
-  const card = new Card(item, '#card', handleCardClick);
+  const card = new Card(item, cardTemplateSelector, handleCardClick);
   const cardElement = card.generateCard();
   return cardElement
 }
@@ -40,7 +33,7 @@ function createCard(item) {
 const cardList = new Section({
   data: initialCards,
   renderer: (item) => {
-    const card = new Card (item, '#card', handleCardClick);
+    const card = new Card (item, cardTemplateSelector, handleCardClick);
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
   }
@@ -57,54 +50,62 @@ const enableValidation = (config) => {
   });
 };
 
-// Включение валидации
-enableValidation(config);
-
 // Слушатель кнопки "Редактировать профиль"
 editProfileButton.addEventListener('click', function () {
   formValidators['editProfile'].resetValidation();
   const getUserInfo = new UserInfo({profileName: '.profile__name', profileAbout: '.profile__about'});
   const userInfo = getUserInfo.getUserInfo();
-  profilePopupAdd.open();
+  profileFormPopup.open();
   newProfileName.setAttribute('value', userInfo.name);
   newProfileAbout.setAttribute('value', userInfo.about);
-}); 
+});
+
+// Создание класса попапа с картинкой
+const imagePopup = new PopupWithImage('.image-popup');
 
 // Функция открытия попапа с картинкой
-function handleCardClick(name, link) {
-  const imagePopup = new PopupWithImage({name: name, link: link},'.image-popup');
-  imagePopup.open();
+const handleCardClick = (data) => {
+  imagePopup.open(data);
   imagePopup.setEventListeners();
 }
 
+// Создание класса инфо пользователя
+const userInfo = new UserInfo({
+  profileName: '.profile__name', 
+  profileAbout: '.profile__about'
+});
+
+//Создание класса попапа редактирования информации о профиле
+const profileFormPopup = new PopupWithForm ('.profile-popup', (newValues) => {
+  userInfo.setUserInfo(newValues);
+  profileFormPopup.close();
+});
+
+//Создание класса попапа добавления нового места
+const placeFormPopup = new PopupWithForm ('.place-popup', (newValues) => {
+    const newdata = [{
+      name: newValues.namePlace,
+      link: newValues.linkImage
+    }];
+    const readyNewCard = new Section ({
+      data: newdata,
+      renderer: (item) => {
+        const newcardElement = createCard(item);
+        readyNewCard.addItem(newcardElement);
+      }
+    }, elementSection);
+    readyNewCard.renderer();
+    placeFormPopup.close();
+});
+
 // Слушатель кнопки "Добавить Место"
 addPlaceButton.addEventListener('click', function () {
-    formValidators['addPlace'].resetValidation();
-    placePopupAdd.open();
-}); 
+  formValidators['addPlace'].resetValidation();
+  placeFormPopup.open();
+});
 
-
-const profileFormPopup = new PopupWithForm ('.profile-popup', () => {
-  profileForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    const getUserInfo = new UserInfo({profileName: '.profile__name', profileAbout: '.profile__about'});
-    getUserInfo.setUserInfo();
-    profileFormPopup.close();
-  });
-} );
-
-const placeFormPopup = new PopupWithForm ('.place-popup', () => {
-  placeForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    const data = {
-      name: newPlace.value, 
-      link: newImage.value
-    };
-    const readyNewCard = createCard(data);
-    elementSection.prepend(readyNewCard);
-    placeFormPopup.close();
-  });
-} );
+// Включение валидации
+enableValidation(config);
 
 placeFormPopup.setEventListeners();
 profileFormPopup.setEventListeners();

@@ -13,10 +13,9 @@ const newPlace = document.querySelector('#namePlace');
 const newImage = document.querySelector('#linkImage');
 const elementSection = document.querySelector('.elements');
 const imagePopup = document.querySelector('.image-popup');
-const subtitleImagePopup = imagePopup.querySelector('.popup__subtitle');
-const pictureImagePopup = imagePopup.querySelector('.popup__image');
 const popups = document.querySelectorAll('.popup');
 const formValidators = {};
+const cardTemplateSelector = '#card';
 const config = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
@@ -28,12 +27,12 @@ const config = {
 
   // теперь картинки можно импортировать,
 // вебпак добавит в переменные правильные пути
-const murmanskImage = new URL('../../images/Murmansk-Oblast.jpg', import.meta.url);
-const machuPikchuImage = new URL('../../images/Machu-Picchu.jpg', import.meta.url);
-const jacartaImage = new URL('../../images/Jakarta-Utara.jpg', import.meta.url);
-const islandImage = new URL('../../images/Iceland.jpg', import.meta.url);
-const edinburgImage = new URL('../../images/Edinburgh.jpg', import.meta.url);
-const amsterdamImage = new URL('../../images/Amsterdam.jpg', import.meta.url);
+const murmanskImage = new URL('../images/Murmansk-Oblast.jpg', import.meta.url);
+const machuPikchuImage = new URL('../images/Machu-Picchu.jpg', import.meta.url);
+const jacartaImage = new URL('../images/Jakarta-Utara.jpg', import.meta.url);
+const islandImage = new URL('../images/Iceland.jpg', import.meta.url);
+const edinburgImage = new URL('../images/Edinburgh.jpg', import.meta.url);
+const amsterdamImage = new URL('../images/Amsterdam.jpg', import.meta.url);
 
 const initialCards = [
   {
@@ -62,4 +61,4 @@ const initialCards = [
   }
 ];
 
-export {editProfileButton, profilePopup, profileName, profileAbout, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, placeForm, newPlace, newImage, elementSection, imagePopup, subtitleImagePopup, pictureImagePopup, popups, formValidators, config, initialCards}
+export {editProfileButton, profilePopup, profileName, profileAbout, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, placeForm, newPlace, newImage, elementSection, imagePopup, popups, formValidators, cardTemplateSelector, config, initialCards}

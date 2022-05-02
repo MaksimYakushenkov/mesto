@@ -6,9 +6,6 @@
   <meta name="description" content="Проектная работа №8">
   <meta name="keywords" content="html, css">
   <meta name="author" content="Максим Якушенков">
-
-
-  
   <title>Проект: Место</title>
 </head>
 <body class="root">
@@ -39,9 +36,9 @@
         <div class="popup__container popup__container_handle-form">
           <p class="popup__title">Редактировать профиль</p>
           <form name="editProfile" class="popup__form" novalidate>
-            <input type="text" class="popup__input" id="name" minlength="2" maxlength="40" required>
+            <input type="text" class="popup__input" id="name" minlength="2" maxlength="40" placeholder="Имя" required>
             <span class="name-error popup__error"></span>
-            <input type="text" class="popup__input" id="about" minlength="2" maxlength="200" required>
+            <input type="text" class="popup__input" id="about" minlength="2" maxlength="200" placeholder="Профессиональная деятельность" required>
             <span class="about-error popup__error"></span>
             <button type="submit" class="popup__button">Сохранить</button>
           </form>
@@ -75,6 +72,7 @@
     </footer>
 
   </div>
+  
   <template id="card">
     <article class="elements__item card">
       <img class="card__image">
