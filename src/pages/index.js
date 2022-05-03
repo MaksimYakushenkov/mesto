@@ -33,9 +33,8 @@ function createCard(item) {
 const cardList = new Section({
   data: initialCards,
   renderer: (item) => {
-    const card = new Card (item, cardTemplateSelector, handleCardClick);
-    const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
+    const cardElement = createCard(item);
+    cardList.addItem(cardElement);    
   }
 }, elementSection);
 
@@ -71,7 +70,7 @@ const handleCardClick = (data) => {
 
 // Создание класса инфо пользователя
 const userInfo = new UserInfo({
-  profileName: '.profile__name', 
+  profileName: '.profile__name',
   profileAbout: '.profile__about'
 });
 
@@ -81,20 +80,16 @@ const profileFormPopup = new PopupWithForm ('.profile-popup', (newValues) => {
   profileFormPopup.close();
 });
 
+// Добавление нового места
+const handleAddCardFormSubmit = (newdata) => cardList.addItem(createCard(newdata));
+
 //Создание класса попапа добавления нового места
 const placeFormPopup = new PopupWithForm ('.place-popup', (newValues) => {
-    const newdata = [{
+    const newdata = {
       name: newValues.namePlace,
       link: newValues.linkImage
-    }];
-    const readyNewCard = new Section ({
-      data: newdata,
-      renderer: (item) => {
-        const newcardElement = createCard(item);
-        readyNewCard.addItem(newcardElement);
-      }
-    }, elementSection);
-    readyNewCard.renderer();
+    };
+    handleAddCardFormSubmit(newdata);
     placeFormPopup.close();
 });
 
