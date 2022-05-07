@@ -147,7 +147,7 @@ editProfileButton.addEventListener('click', function () {
 const imagePopup = new PopupWithImage('.image-popup');
 
 // Создание класса попапа удаления карточки
-const deletePopup = new PopupDelete('.popup__delete_card', (id) => {
+const deletePopup = new PopupDelete('.delete-popup', (id) => {
   api.deleteUserCard(id, {
       authorization: 'f4ccf291-bfa6-4f7d-8768-52c052475176'
   })
