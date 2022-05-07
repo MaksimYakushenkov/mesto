@@ -17,10 +17,12 @@
 
     <main>
       <section class="profile">
-        <div class="profile__avatar"></div>
+        <div class="profile__avatar">
+          <div class="profile__avatar-edit"><img src="<%=require('./images/avatar_edit-button.svg')%>" alt=""></div>
+        </div>
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <p class="profile__about">Исследователь океана</p>
+          <h1 class="profile__name"></h1>
+          <p class="profile__about"></p>
           <button class="profile__edit-button"></button>
         </div>
         <button class="profile__add-button">
@@ -65,6 +67,24 @@
             <button class="popup__close-button"></button>
           </div>
       </section>
+      <section class="popup avatar-popup">
+        <div class="popup__container popup__container_handle-form">
+          <p class="popup__title">Обновить аватар</p>
+          <form name="newAvatar" class="popup__form" novalidate>
+            <input type="url" class="popup__input" id="linkAvatarImage" placeholder="Ссылка на картинку" required>
+            <span class="linkAvatarImage-error popup__error"></span>
+            <button type="submit" class="popup__button">Сохранить</button>
+          </form>
+          <button class="popup__close-button"></button>
+        </div>
+      </section>
+      <section class="popup popup__delete">
+        <div class="popup__container popup__container_handle-form">
+          <p class="popup__title">Вы уверены?</p>
+          <button class="popup__button popup__delete_confirm">Да</button>
+          <button class="popup__close-button"></button>
+        </div>
+    </section>
     </main>
 
     <footer class="footer">
@@ -78,11 +98,13 @@
       <img class="card__image">
       <div class="card__bottom">
         <p class="card__title"></p>
-        <button class="card__like"></button>
+        <div class="card__like-block">
+          <button class="card__like"></button>
+          <p class="card__likes-num"></p></div>
       </div>
-      <button class="card__trash"></button>
     </article>
   </template>
+
 
 </body>
 </html>

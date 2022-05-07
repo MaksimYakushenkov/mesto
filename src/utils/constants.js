@@ -3,11 +3,13 @@ const editProfileButton = profile.querySelector('.profile__edit-button');
 const profilePopup = document.querySelector('.profile-popup');
 const profileName = profile.querySelector('.profile__name');
 const profileAbout = profile.querySelector('.profile__about');
+const profileAvatar = profile.querySelector('.profile__avatar');
 const newProfileName = document.querySelector('#name');
 const newProfileAbout = document.querySelector('#about');
 const profileForm = profilePopup.querySelector('.popup__form');
 const placePopup = document.querySelector('.place-popup');
 const addPlaceButton = profile.querySelector('.profile__add-button');
+const avatarEditButton = profile.querySelector('.profile__avatar-edit');
 const placeForm = placePopup.querySelector('.popup__form');
 const newPlace = document.querySelector('#namePlace');
 const newImage = document.querySelector('#linkImage');
@@ -25,40 +27,4 @@ const config = {
     errorClass: 'popup__error_visible'
   };
 
-  // теперь картинки можно импортировать,
-// вебпак добавит в переменные правильные пути
-const murmanskImage = new URL('../images/Murmansk-Oblast.jpg', import.meta.url);
-const machuPikchuImage = new URL('../images/Machu-Picchu.jpg', import.meta.url);
-const jacartaImage = new URL('../images/Jakarta-Utara.jpg', import.meta.url);
-const islandImage = new URL('../images/Iceland.jpg', import.meta.url);
-const edinburgImage = new URL('../images/Edinburgh.jpg', import.meta.url);
-const amsterdamImage = new URL('../images/Amsterdam.jpg', import.meta.url);
-
-const initialCards = [
-  {
-    name: 'Мурманская область',
-    link: murmanskImage,
-  },
-  {
-    name: 'Мачу-Пикчу',
-    link: machuPikchuImage,
-  },
-  {
-    name: 'Джакарта',
-    link: jacartaImage,
-  },
-  {
-    name: 'Исландия',
-    link: islandImage,
-  },
-  {
-    name: 'Единбург',
-    link: edinburgImage,
-  },
-  {
-    name: 'Амстердам',
-    link: amsterdamImage,
-  }
-];
-
-export {editProfileButton, profilePopup, profileName, profileAbout, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, placeForm, newPlace, newImage, elementSection, imagePopup, popups, formValidators, cardTemplateSelector, config, initialCards}
+export {editProfileButton, profilePopup, profileName, profileAbout, profileAvatar, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, avatarEditButton, placeForm, newPlace, newImage, elementSection, imagePopup, popups, formValidators, cardTemplateSelector, config}
