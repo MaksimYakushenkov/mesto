@@ -83,13 +83,12 @@ const cardLists = api.getInitialCards()
 // Создание карточек из списка данных с сервера
 Promise.all([defaultUser, cardLists])
   .then((results) => {
-    console.log(results[1]);
-      cardList.renderer({
-        data: results[1],
-        renderer: (item) => {
-            const cardElement = createCard(item, results[0]);
-            cardList.addItem(cardElement);
-        }});
+    cardList.renderer({
+      data: results[1],
+      renderer: (item) => {
+          const cardElement = createCard(item, results[0]);
+          cardList.addItem(cardElement);
+      }});
   })
   .catch((err) => {
     console.log(err);
