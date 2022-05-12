@@ -20,10 +20,10 @@ export default class Api {
     })
   }
 
-  setNewCard(newdata, headers) {
+  setNewCard(newdata) {
     return fetch(`${this._baseUrl}cards`, {
       method: 'POST',
-      headers: headers,
+      headers: this._headers,
       body: JSON.stringify({
         name: newdata.name,
         link: newdata.link
@@ -72,10 +72,10 @@ export default class Api {
      return this._getResponseData(res);
     })
   }
-  setNewUserAvatar(newAvatarLink, headers) {
+  setNewUserAvatar(newAvatarLink) {
     return fetch(`${this._baseUrl}users/me/avatar`, {
       method: 'PATCH',
-      headers: headers,
+      headers: this._headers,
       body: JSON.stringify({
         avatar: newAvatarLink.linkAvatarImage})
     })
@@ -84,10 +84,10 @@ export default class Api {
     })
   }
 
-  setNewUserInfo(newValues, headers) {
+  setNewUserInfo(newValues) {
     return fetch(`${this._baseUrl}users/me`, {
       method: 'PATCH',
-      headers: headers,
+      headers: this._headers,
       body: JSON.stringify({
         name: newValues.name,
         about: newValues.about

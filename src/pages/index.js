@@ -26,49 +26,53 @@ import PopupDelete from '../components/PopupDelete.js';
 import {FormValidator} from '../components/FormValidator.js';
 
 // Импортируем необходимые глобальные переменные
-import {editProfileButton, profileName, profileAbout, profileAvatar,newProfileName, newProfileAbout, addPlaceButton, avatarEditButton, elementSection, formValidators, cardTemplateSelector, config} from '../utils/constants.js';
+import {editProfileButton,newProfileName, newProfileAbout, addPlaceButton, avatarEditButton, elementSection, formValidators, cardTemplateSelector, userId, config} from '../utils/constants.js';
 
 // Создание класса API
 const api = new Api({
   baseUrl: 'https://nomoreparties.co/v1/cohort-40/',
   headers: {
-    authorization: 'f4ccf291-bfa6-4f7d-8768-52c052475176'
+    authorization: 'f4ccf291-bfa6-4f7d-8768-52c052475176',
+    'Content-Type': 'application/json'
   }
 });
 
-// Функция постановки лайка
-const putCardLike = (id, cardLikes, likeButton) => {
-  api.putCardLike(id)
-  .then((data) => {
-    cardLikes.textContent = data.likes.length;
-    likeButton.classList.add('card__like_active');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-};
-
-// Функция снятия лайка
-const deleteCardLike = (id, cardLikes, likeButton) => {
-  api.deleteCardLike(id)
-.then((data) => {
-  cardLikes.textContent = data.likes.length;
-  likeButton.classList.remove('card__like_active');
-})
-.catch((err) => {
-  console.log(err);
-});
-};
+// Функция постановки и снятия лайка
+function handleCardLikeClick (id, likeBtn, cardEl) {
+  if (!likeBtn.classList.contains('card__like_active')) {
+    api.putCardLike(id)
+    .then((data) => {
+      cardEl.reloadLikes(data.likes);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  } else {
+    api.deleteCardLike(id)
+    .then((data) => {
+      cardEl.reloadLikes(data.likes);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+}
 
 // Функция создания карточки секции "Места"
 function createCard(item, userInfo) {
-  const card = new Card(item, userInfo, cardTemplateSelector, handleCardClick, putCardLike, deleteCardLike, deletePopupClick);
+  const card = new Card(item, userInfo, cardTemplateSelector, handleCardClick, handleCardLikeClick, deletePopupClick);
   const cardElement = card.generateCard();
   return cardElement
 }
 
 // Создание секции с карточками
 const cardList = new Section(elementSection);
+
+const getUserInfo = new UserInfo({
+  profileName: '.profile__name',
+  profileAbout: '.profile__about',
+  profileAvatar: '.profile__avatar'
+});
 
 const defaultUser = api.getUserInfo()
 .then((data) => {
@@ -83,12 +87,15 @@ const cardLists = api.getInitialCards()
 // Создание карточек из списка данных с сервера
 Promise.all([defaultUser, cardLists])
   .then((results) => {
+    userId = results[0]._id;
     cardList.renderer({
-      data: results[1],
+      data: results[1].reverse(),
       renderer: (item) => {
-          const cardElement = createCard(item, results[0]);
+          const cardElement = createCard(item, userId);
           cardList.addItem(cardElement);
       }});
+    getUserInfo.setUserInfo(results[0]);
+    getUserInfo.setUserAvatar(results[0].avatar); 
   })
   .catch((err) => {
     console.log(err);
@@ -105,12 +112,6 @@ const enableValidation = (config) => {
   });
 };
 
-const getUserInfo = new UserInfo({
-  profileName: '.profile__name',
-  profileAbout: '.profile__about',
-  profileAvatar: '.profile__avatar'
-});
-
 // Слушатель кнопки "Редактировать профиль"
 editProfileButton.addEventListener('click', function () {
   formValidators['editProfile'].resetValidation();
@@ -120,28 +121,14 @@ editProfileButton.addEventListener('click', function () {
   newProfileAbout.setAttribute('value', userInfo.about);
 });
 
-//Функция установки актуальных данных профиля
-const defaultUserInfo = () => {
-  api.getUserInfo()
-  .then((data) => {
-    getUserInfo.setUserInfo(data);
-    getUserInfo.setUserAvatar(data);
-    })
-  .catch((err) => {
-    console.log(err);
-  });
-};
-
-defaultUserInfo();
-
 // Создание класса попапа с картинкой
 const imagePopup = new PopupWithImage('.image-popup');
 
 // Создание класса попапа удаления карточки
 const deletePopup = new PopupDelete('.delete-popup', (id, deleteCardEl) => {
   api.deleteUserCard(id)
-  .then(() => {
-    deleteCardEl.remove(); 
+  .then(() => { 
+    deleteCardEl.deleteCard();
     deletePopup.close();
   })
   .catch((err) => {
@@ -156,10 +143,7 @@ const deletePopupClick = (idCard, deleteCardEl) => {
 }
 
 // Функция открытия попапа с картинкой
-const handleCardClick = (data) => {
-  imagePopup.open(data);
-  imagePopup.setEventListeners();
-};
+const handleCardClick = (data) => imagePopup.open(data);
 
 // Создание класса инфо пользователя
 const userInfo = new UserInfo({
@@ -169,11 +153,7 @@ const userInfo = new UserInfo({
 
 //Создание класса попапа редактирования информации о профиле
 const profileFormPopup = new PopupWithForm ('.profile-popup', (newValues) => {
-  api.setNewUserInfo(newValues,
-    {
-    authorization: 'f4ccf291-bfa6-4f7d-8768-52c052475176',
-    'Content-Type': 'application/json'
-    })
+  api.setNewUserInfo(newValues)
     .then(() => {
       userInfo.setUserInfo(newValues);
       profileFormPopup.close();
@@ -188,13 +168,9 @@ const profileFormPopup = new PopupWithForm ('.profile-popup', (newValues) => {
 
 //Создание класса попапа редактирования аватара профиля
 const avatarFormPopup = new PopupWithForm ('.avatar-popup', (newAvatarLink) => {
-  api.setNewUserAvatar(newAvatarLink,
-    {
-    authorization: 'f4ccf291-bfa6-4f7d-8768-52c052475176',
-    'Content-Type': 'application/json'
-    })
+  api.setNewUserAvatar(newAvatarLink)
   .then(() => {
-    defaultUserInfo();
+    getUserInfo.setUserAvatar(newAvatarLink.linkAvatarImage);
     avatarFormPopup.close();
   })
   .catch((err) => {
@@ -211,18 +187,13 @@ avatarEditButton.addEventListener('click', function () {
   avatarFormPopup.open();
 });
 
-// Добавление нового места
+// Функция добавлениея нового места
 const handleAddCardFormSubmit = (newdata) => {
-  const setNewCard = api.setNewCard(newdata,  {
-    authorization: 'f4ccf291-bfa6-4f7d-8768-52c052475176',
-    'Content-Type': 'application/json'
-  });
-
-  Promise.all([defaultUser, setNewCard])
-  .then((results) => {
-    cardList.addItem(createCard(results[1], results[0])); 
+  api.setNewCard(newdata)
+  .then((data) => {
+    cardList.addItem(createCard(data, userId)); 
     placeFormPopup.close();
-    })
+  })
   .catch((err) => {
     console.log(err);
   })
@@ -253,3 +224,4 @@ enableValidation(config);
 placeFormPopup.setEventListeners();
 profileFormPopup.setEventListeners();
 avatarFormPopup.setEventListeners();
+imagePopup.setEventListeners();

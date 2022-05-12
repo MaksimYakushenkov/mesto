@@ -18,6 +18,7 @@ const imagePopup = document.querySelector('.image-popup');
 const popups = document.querySelectorAll('.popup');
 const formValidators = {};
 const cardTemplateSelector = '#card';
+let userId;
 const config = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
@@ -27,4 +28,4 @@ const config = {
     errorClass: 'popup__error_visible'
   };
 
-export {editProfileButton, profilePopup, profileName, profileAbout, profileAvatar, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, avatarEditButton, placeForm, newPlace, newImage, elementSection, imagePopup, popups, formValidators, cardTemplateSelector, config}
+export {editProfileButton, profilePopup, profileName, profileAbout, profileAvatar, newProfileName, newProfileAbout, profileForm, placePopup, addPlaceButton, avatarEditButton, placeForm, newPlace, newImage, elementSection, imagePopup, popups, formValidators, cardTemplateSelector, userId, config}
